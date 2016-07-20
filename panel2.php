@@ -11,9 +11,10 @@ app.controller('myDataController',function($scope, $http){
       .then(function(response){$scope.bikes = response.data.bikes;});
 	$http.get("http://192.168.1.237/sfbike/scripts/getCount.php")
       .then(function(response){$scope.count = response.data.count;});
-	$scope.acount="3";
-	/*$scope.anumber="3";
-	$scope.bnumber="4";*/
+	$scope.acount="1",
+   $scope.incAcount=function(){
+      $scope.acount++;
+   },
 	$scope.indexNumbers=["3","4","5","8","9"];
 });
 <?php
@@ -69,7 +70,7 @@ while($bikeInfo = $bikeresult->fetch_row()){
 <div ng-app="myDataApp" ng-controller="myDataController">
    <!-- PANEL NG-REPEAT -->
 	<div ng-repeat="indexNumber in indexNumbers">
-		<bike-directive></bike-directive>
+		<div bike-directive="{{ acount }}"></bike-directive>
 	</div>
     </div>
 </div>
