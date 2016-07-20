@@ -6,7 +6,7 @@ app.directive("bikeDirective", function() {
 		restrict:'EA',
         template: "<div>" +
 		"<img ng-src=\"admin/icons/editbutton.jpg\" id=\"{{ 'clickEdit' + indexNumber }}\"> " +
-		"<img ng-src='admin/icons/nukebutton.jpg' id=\"{{ 'clickHide' + indexNumber }}\"> Edit Panel {{ indexNumber }}" +
+		"<img ng-src='admin/icons/nukebutton.jpg' id=\"{{ 'clickHide' + indexNumber }}\"> Edit Bicycle {{ indexNumber }}" +
 		"</div>" +
 		"<div id=\"{{'panel' + indexNumber}}\" class=\"slider\">" +
 		"<table>" +
