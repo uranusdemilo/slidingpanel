@@ -7,11 +7,13 @@
 <script> 
 var app = angular.module('myDataApp',[]);
 app.controller('myDataController',function($scope, $http){
-	$http.get("http://192.168.1.237/sfbike/scripts/getMyData.php")
+	$http.get("http://192.168.1.237/sfbike/scripts/getbikes.php")
       .then(function(response){$scope.bikes = response.data.bikes;});
 	$http.get("http://192.168.1.237/sfbike/scripts/getCount.php")
       .then(function(response){$scope.count = response.data.count;});
-	$scope.indexNumbers=["3","4","5","8","9"];
+   $http.get("http://192.168.1.237/sfbike/scripts/getindex.php")
+      .then(function(response){$scope.bikeindex = response.data.bikeindex;});
+	$scope.indexNumbers=["4","5","6","7","8","9","10","11","12","13"];
 });
 <?php
 function createTabAction($num){
@@ -34,8 +36,14 @@ $bikeresult = $fsconnect->query($getBikeQuery);
 createTabAction(3);
 createTabAction(4);
 createTabAction(5);
+createTabAction(6);
+createTabAction(7);
 createTabAction(8);
 createTabAction(9);
+createTabAction(10);
+createTabAction(11);
+createTabAction(12);
+createTabAction(13);
 
 ?>
 </script>
