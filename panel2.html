@@ -8,44 +8,34 @@
 var app = angular.module('myDataApp',[]);
 app.controller('myDataController',function($scope, $http){
 	$http.get("http://192.168.1.237/sfbike/scripts/getbikes.php")
-      .then(function(response){$scope.bikes = response.data.bikes;});
-	$http.get("http://192.168.1.237/sfbike/scripts/getCount.php")
-      .then(function(response){$scope.count = response.data.count;});
-   $http.get("http://192.168.1.237/sfbike/scripts/getindex.php")
-      .then(function(response){$scope.bikeindex = response.data.bikeindex;});
+      .then(function(response){$scope.bikes = response.data.bikes;
+	  $scope.goTabs();
+	  });
 	$scope.indexNumbers=["4","5","6","7","8","9","10","11","12","13"];
+	$scope.goTabs=function(){
+		var n=0;
+		while($scope.bikes[n]){
+			createTabFunction(n);
+			n++;
+		}
+	};
 });
-<?php
-function createTabAction($num){
-   print "$(document).ready(function(){\n";
-   print "\t$('#clickEdit" . $num . "').click(function(){\n";
-   print "\t\t$('#panel" . $num . "').slideDown('slow');\n";
-   print "\t});\n";
-   print "});\n";
-   print "$(document).ready(function(){\n";
-   print "\t$('#clickHide" . $num . "').click(function(){\n";
-   print "\t\t$('#panel" . $num . "').slideUp('slow');\n";
-   print "\t});\n";
-   print "});\n";
-}
+function createTabFunction(num){
+	var tabFunction=function(){
+		$(document).ready(function(){
+			$("#clickEdit" + num).click(function(){
+				$("#panel" + num).slideDown("slow");
+			});
+		});
+		$(document).ready(function(){
+			$("#clickHide" + num).click(function(){
+				$("#panel" + num).slideUp("slow");
+			});
+		});
+	}();
+	return tabFunction;
+};
 
-$fsconnect=mysqli_connect("localhost","dbagent","patches","testdb");
-$getBikeQuery="select num from mydata";
-$bikeresult = $fsconnect->query($getBikeQuery);
-
-createTabAction(3);
-createTabAction(4);
-createTabAction(5);
-createTabAction(6);
-createTabAction(7);
-createTabAction(8);
-createTabAction(9);
-createTabAction(10);
-createTabAction(11);
-createTabAction(12);
-createTabAction(13);
-
-?>
 </script>
 <script src='panel2.js'></script>
 <style>
@@ -65,12 +55,6 @@ button{
 </style>
 </head>
 <body>
-<?php
-$bikeindex=array();
-while($bikeInfo = $bikeresult->fetch_row()){
-   array_push($bikeindex,$bikeInfo[0]);
-}
-?>
 <div ng-app="myDataApp" ng-controller="myDataController">
    <!-- PANEL NG-REPEAT -->
 	<div ng-repeat="indexNumber in indexNumbers">
