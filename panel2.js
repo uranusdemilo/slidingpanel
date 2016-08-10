@@ -9,7 +9,7 @@ app.directive("bikeDirective", function() {
 		"<div>{{bikes[$index].biketitle}}</div>" +
 		"<div>{{bikes[$index].bikeprice}}</div>" +
 		"<img ng-src=\"admin/icons/editbutton.jpg\" id=\"{{ 'clickEdit' + indexNumber }}\"> " +
-		"<img ng-src='admin/icons/nukebutton.jpg' id=\"{{ 'clickHide' + indexNumber }}\"> Edit Bicycle {{ indexNumber }}" +
+		"<img ng-src='admin/icons/nukebutton.jpg' id=\"{{ 'clickHide' + indexNumber }}\">" +
 		"</div>" +
 		"<div id=\"{{'panel' + indexNumber}}\" class=\"slider\">" +
 		"<table>" +
@@ -18,8 +18,8 @@ app.directive("bikeDirective", function() {
          "<tr><td>Price: $</td><td><input type='text' width = '30' value='{{ bikes[$index].bikeprice }}'></td></tr></input>" +	
       "</table>" +
 		"<button type='button' id=\"{{'submitEdit' + indexNumber }}\">Submit Edit</button>" +
-      "<button type='button' id='cancelButton3'>Cancel</button>" +
-		"</div>",
+      "<button type='button' id=\"{{'cancelButton' + indexNumber }}\">Cancel</button>" +
+		"</div><br>",
       link: linkFunction
     };
 }); 

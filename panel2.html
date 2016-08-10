@@ -7,28 +7,29 @@
 <script> 
 var app = angular.module('myDataApp',[]);
 app.controller('myDataController',function($scope, $http){
+	$http.get("http://192.168.1.237/sfbike/scripts/getArray.php")
+      .then(function(response){$scope.indexNumbers = response.data});
 	$http.get("http://192.168.1.237/sfbike/scripts/getbikes.php")
       .then(function(response){$scope.bikes = response.data.bikes;
 	  $scope.goTabs();
 	  });
-	$scope.indexNumbers=["4","5","6","7","8","9","10","11","12","13"];
 	$scope.goTabs=function(){
 		var n=0;
 		while($scope.bikes[n]){
-			createTabFunction(n);
+			createTabFunction($scope.bikes[n].bikenum);
 			n++;
-		}
+		};
 	};
 });
 function createTabFunction(num){
 	var tabFunction=function(){
 		$(document).ready(function(){
-			$("#clickEdit" + num).click(function(){
+			$("#clickEdit" + num).on("click",function(){
 				$("#panel" + num).slideDown("slow");
 			});
 		});
 		$(document).ready(function(){
-			$("#clickHide" + num).click(function(){
+			$("#cancelButton" + num).on("click",function(){
 				$("#panel" + num).slideUp("slow");
 			});
 		});
@@ -59,7 +60,9 @@ button{
    <!-- PANEL NG-REPEAT -->
 	<div ng-repeat="indexNumber in indexNumbers">
 		<div bike-directive></div>
+		<!--<div>test {{bikes[indexNumber].bikenum}}</div>-->
 	</div>
+	{{ indexNumbers }}
     </div>
 </div>
 </body>
